@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Email_JobHub</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Crimson Pro', serif;
+            }
+        </style>
+    </head>
+
+    <body style="width: 100%; margin: 0; padding: 0">
+        <div
+            class="emailjob"
+            style="
+                max-width: 500px;
+                min-height: 400px;
+                border-radius: 5px;
+                font-size: 16px;
+                line-height: 20px;
+                font-size: 16px;
+                line-height: 25px;
+                margin: 0 auto;
+                border: 1px solid #ecebf0;
+            "
+        >
+            <div style="text-align: center; padding: 1rem 0">
+                <img
+                    src="https://res.cloudinary.com/dcv1op3hs/image/upload/v1710506502/logo-ver1_mxsh2m.png"
+                    width="100px"
+                    alt=""
+                />
+            </div>
+
+            <div style="background-color: #faf6f0; padding: 20px; text-align: center">
+                <h2 style="font-size: 26px; font-weight: 500; letter-spacing: 1px; color: #252526; margin: 20px 0">
+                    ORDER CONFIRMATION
+                </h2>
+                <h3 style="font-size: 18px; font-weight: 400; color: #585759; margin: 6px 0">
+                    [name], thank you for your order!
+                </h3>
+                <h4 style="font-size: 14px; font-weight: 400; color: #585759">
+                    We've received your order and will contact you as soon as your package is shipped. You can find your
+                    purchase information below.
+                </h4>
+            </div>
+
+            <div style="padding: 20px">
+                <h2
+                    style="
+                        font-size: 26px;
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        color: #252526;
+                        margin: 20px 0;
+                        text-align: center;
+                    "
+                >
+                    ORDER SUMMARY
+                </h2>
+
+                [items]
+
+                <div>
+                    <div style="font-size: 16px; color: #585759; font-weight: 600; margin: 4px 0">
+                        <p style="display: inline-block">Subtotal price:</p>
+                        <p style="display: block; float: right">[subtotal]$</p>
+                    </div>
+                    <div style="font-size: 16px; color: #585759; font-weight: 600; margin: 4px 0">
+                        <p style="display: inline-block">Shipping Fee:</p>
+                        <p style="display: block; float: right">[shippingFee]$</p>
+                    </div>
+                    <div style="font-size: 16px; color: #585759; font-weight: 600; margin: 4px 0">
+                        <p style="display: inline-block">Discount:</p>
+                        <p style="display: block; float: right">[priceDiscount]$</p>
+                    </div>
+                    <div style="font-size: 16px; color: #585759; font-weight: 600; margin: 4px 0">
+                        <p style="display: inline-block">Shipping discount:</p>
+                        <p style="display: block; float: right">[shippingDiscount]$</p>
+                    </div>
+                    <div style="font-size: 16px; color: #585759; font-weight: 600; margin: 4px 0">
+                        <p style="display: inline-block">Total price:</p>
+                        <p style="display: block; float: right">[totalPrice]$</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div style="padding: 10px 30px; background-color: #faf6f0">
+                    <div>
+                        <h2
+                            style="
+                                font-size: 26px;
+                                font-weight: 500;
+                                letter-spacing: 1px;
+                                color: #252526;
+                                margin: 14px 0;
+                            "
+                        >
+                            Shipping Info
+                        </h2>
+                        <div style="font-size: 14px; font-weight: 500; color: #585759">
+                            <p style="margin: 4px 0">Name: [name]</p>
+                            <p style="margin: 4px 0">Phone number: +[phoneNumber]</p>
+                            <p style="margin: 4px 0">Address: [address]</p>
+                            <p style="margin: 4px 0">City: [city]</p>
+                            <p style="margin: 4px 0">State/Province: [state]</p>
+                            <p style="margin: 4px 0">Country: [country]</p>
+                            <p style="margin: 4px 0">Shipping method: [shippingMethod]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
