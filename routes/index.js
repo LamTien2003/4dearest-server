@@ -5,7 +5,6 @@ const orderRoute = require('./orderRoute');
 const couponRoute = require('./couponRoute');
 const cartRoute = require('./cartRoute');
 const utilsRoute = require('./utilsRoute');
-const aliexpressServiceRoute = require('./aliexpressServiceRoute');
 
 const route = (app) => {
     app.use('/auth', authRoute);
@@ -15,7 +14,6 @@ const route = (app) => {
     app.use('/order', orderRoute);
     app.use('/coupon', couponRoute);
     app.use('/utils', utilsRoute);
-    app.use('/aliexpress', aliexpressServiceRoute);
 };
 
 module.exports = route;
