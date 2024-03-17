@@ -5,8 +5,8 @@ const { sendResponseToClient } = require('../utils/utils');
 const Category = require('../model/categoryModel');
 
 exports.addCategory = catchAsync(async (req, res, next) => {
-    const { categoryName, href } = req.body;
-    const payload = { categoryName, href };
+    const { categoryName, href, parent } = req.body;
+    const payload = { categoryName, href, parent };
 
     if (req?.file?.filename) {
         payload.categoryImage = req.file.filename;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Category = require('../model/categoryModel');
 const ObjectId = mongoose.Types.ObjectId;
 
 class APIFeatures {
@@ -9,7 +10,7 @@ class APIFeatures {
 
     filter() {
         const queryObj = { ...this.queryString };
-        const excludedFields = ['page', 'sort', 'limit', 'fields', 'q', 'p', 'd'];
+        const excludedFields = ['page', 'sort', 'limit', 'fields', 'q', 'p', 'd', 'category'];
         excludedFields.forEach((el) => delete queryObj[el]);
 
         // 1B) Advanced filtering
@@ -60,6 +61,17 @@ class APIFeatures {
                 this.query = this.query.match({ [fieldName]: { $regex: q, $options: 'i' } });
             } else {
                 this.query = this.query.find({ [fieldName]: { $regex: q, $options: 'i' } });
+            }
+        }
+        return this;
+    }
+    searchCategory(listCategory) {
+        const listCategoryToFind = listCategory.map((item) => item.slug);
+        if (listCategoryToFind && listCategoryToFind?.length) {
+            if (this.query instanceof mongoose.Aggregate) {
+                this.query = this.query.match({ category: { $in: listCategoryToFind } });
+            } else {
+                this.query = this.query.find({ category: { $in: listCategoryToFind } });
             }
         }
         return this;

@@ -17,6 +17,12 @@ const CategorySchema = new mongoose.Schema(
             default: 0,
         },
         slug: { type: String, slug: 'categoryName' },
+        parent: {
+            type: String,
+            default: null,
+            lowercase: true,
+            slug: 'parent',
+        },
     },
     {
         timestamps: true,

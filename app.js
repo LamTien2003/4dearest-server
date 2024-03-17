@@ -17,7 +17,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const route = require('./routes/index');
 // Environment Variable Config
-dotenv.config({ path: './config.env' });
+const envFileName = `./.env.${process.env.NODE_ENV || 'dev'}`;
+dotenv.config({ path: envFileName });
 
 // Connect to Database
 const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);

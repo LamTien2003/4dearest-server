@@ -5,6 +5,7 @@ const { sendResponseToClient } = require('../utils/utils');
 
 const Product = require('../model/productModel');
 const Review = require('../model/reviewModel');
+const Category = require('../model/categoryModel');
 
 exports.addProduct = catchAsync(async (req, res, next) => {
     const { category, title, subTitle, description, additionalInfo, variants, tags } = req.body;
@@ -49,6 +50,7 @@ exports.changeProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllProduct = catchAsync(async (req, res, next) => {
+    const { category } = req.query;
     const productPipeline = [
         {
             $match: { isPublic: true },
@@ -71,10 +73,16 @@ exports.getAllProduct = catchAsync(async (req, res, next) => {
             },
         },
     ];
+    const listCategoryToFind = await Category.find({
+        $or: [{ slug: { $in: category } }, { parent: { $in: category } }],
+    })
+        .select('slug')
+        .lean();
     const productsQuery = new APIFeatures(Product.aggregate(productPipeline), req.query)
         .filter()
         .sort()
         .search('title')
+        .searchCategory(listCategoryToFind)
         .paginate();
 
     const products = await productsQuery.query;
@@ -83,6 +91,7 @@ exports.getAllProduct = catchAsync(async (req, res, next) => {
         .filter()
         .sort()
         .search('title')
+        .searchCategory(listCategoryToFind)
         .query.count('totalItems');
 
     return sendResponseToClient(res, 200, {

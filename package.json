@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --inspect ./app.js",
-        "start": "node app.js",
+        "dev": "SET NODE_ENV=dev&&nodemon --inspect ./app.js",
+        "start": "SET NODE_ENV=prod&&node app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
