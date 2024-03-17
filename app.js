@@ -16,7 +16,9 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const route = require('./routes/index');
+
 // Environment Variable Config
+console.log(process.env.NODE_ENV);
 const envFileName = `./.env.${process.env.NODE_ENV || 'dev'}`;
 dotenv.config({ path: envFileName });
 
