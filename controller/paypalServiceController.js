@@ -40,7 +40,7 @@ exports.createOrder = async (cart, paymentInfo, shippingInfo = null) => {
             .map((product) => {
                 return product.variants
                     .map((variant) => ({
-                        name: `${product.product_name}-${variant?.color.label}`,
+                        name: `${product.product_name}-${variant?.color}`,
                         sku: variant.sku,
                         unit_amount: {
                             currency_code: 'USD',

@@ -11,8 +11,11 @@ exports.addProduct = catchAsync(async (req, res, next) => {
     const { category, title, subTitle, description, additionalInfo, variants, tags } = req.body;
     const payload = { category, title, subTitle, description, additionalInfo, variants, tags };
 
-    if (req?.files?.filename) {
-        payload.imagesProduct = req.files.filename;
+    if (req?.files?.filename?.imagesProduct) {
+        payload.imagesProduct = req.files.filename.imagesProduct;
+    }
+    if (req?.files?.filename?.imageChart) {
+        payload.imageChart = req.files.filename.imageChart[0];
     }
 
     const newProduct = await Product.create(payload);
@@ -23,7 +26,8 @@ exports.addProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.changeProduct = catchAsync(async (req, res, next) => {
-    const { title, subTitle, description, additionalInfo, variants, tags, imagesProduct, isPublic } = req.body;
+    const { title, subTitle, description, additionalInfo, variants, tags, imagesProduct, imageChart, isPublic } =
+        req.body;
 
     const editedProduct = await Product.findByIdAndUpdate(
         req.params.idProduct,
@@ -35,7 +39,8 @@ exports.changeProduct = catchAsync(async (req, res, next) => {
             variants,
             tags,
             isPublic,
-            imagesProduct: req?.files?.filename ? req.files.filename : imagesProduct,
+            imagesProduct: req?.files?.filename?.imagesProduct ? req.files.filename.imagesProduct : imagesProduct,
+            imageChart: req?.files?.filename?.imageChart ? req.files.filename.imageChart[0] : imageChart,
         },
         {
             new: true,
@@ -73,11 +78,16 @@ exports.getAllProduct = catchAsync(async (req, res, next) => {
             },
         },
     ];
-    const listCategoryToFind = await Category.find({
-        $or: [{ slug: { $in: category } }, { parent: { $in: category } }],
-    })
-        .select('slug')
-        .lean();
+
+    let listCategoryToFind;
+    if (category) {
+        listCategoryToFind = await Category.find({
+            $or: [{ slug: { $in: category } }, { parent: { $in: category } }],
+        })
+            .select('slug')
+            .lean();
+    }
+
     const productsQuery = new APIFeatures(Product.aggregate(productPipeline), req.query)
         .filter()
         .sort()

@@ -6,10 +6,7 @@ const ProductDetailSchema = new mongoose.Schema({
         required: [true, 'Sku of this variant Product is required'],
     },
     color: {
-        type: {
-            label: String,
-            colorCode: String,
-        },
+        type: String,
         required: [true, 'Color of Product is required'],
         maxlength: [20, 'Color of Product should be less than 20 character'],
     },

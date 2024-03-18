@@ -9,11 +9,14 @@ exports.getCartInformation = catchAsync(async (req, res, next) => {
     const products = await Product.find({ _id: { $in: listProduct?.map((item) => item?._id) } })
         .select('id imagesProduct slug title subTitle variants')
         .lean();
-
     const result = listProduct.map((productClient) => {
         const productServer = products.find((product) => product._id.toString() === productClient._id.toString());
 
-        const variantsAvailable = productServer.variants.reduce((total, variantServer) => {
+        if (!productServer) {
+            return;
+        }
+
+        const variantsAvailable = productServer?.variants?.reduce((total, variantServer) => {
             if (variantServer?.inventory <= 0) {
                 return [...total];
             }
@@ -39,7 +42,7 @@ exports.getCartInformation = catchAsync(async (req, res, next) => {
         productServer.variants = variantsAvailable;
         return productServer;
     });
-    const finalResult = result.filter((item) => item.variants.length >= 1);
+    const finalResult = result.filter((item) => !!item && item.variants.length >= 1);
 
     return sendResponseToClient(res, 200, {
         status: 'success',

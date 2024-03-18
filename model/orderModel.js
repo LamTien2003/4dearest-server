@@ -32,9 +32,13 @@ const OrderSchema = new mongoose.Schema(
             },
             required: [true, 'Shipping method is required field'],
         },
-        isFulfilled: {
-            type: Boolean,
-            default: false,
+        status: {
+            type: String,
+            enum: {
+                values: ['pending', 'confirmed', 'fulfilled', 'success'],
+                message: 'Status is not valid',
+            },
+            default: 'pending',
         },
         couponUsed: {
             type: String,
@@ -112,10 +116,7 @@ const OrderSchema = new mongoose.Schema(
                                 sku: String,
                                 amount: Number,
                                 price: Number,
-                                color: {
-                                    label: String,
-                                    colorCode: String,
-                                },
+                                color: String,
                             },
                         ],
                         default: undefined,

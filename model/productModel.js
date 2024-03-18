@@ -27,6 +27,7 @@ const ProductSchema = new mongoose.Schema(
             maxlength: [10000, 'Description of product should be less than 1000 character'],
         },
         imagesProduct: [String],
+        imageChart: String,
         additionalInfo: {
             type: Object,
         },

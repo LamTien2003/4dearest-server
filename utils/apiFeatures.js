@@ -66,8 +66,8 @@ class APIFeatures {
         return this;
     }
     searchCategory(listCategory) {
-        const listCategoryToFind = listCategory.map((item) => item.slug);
-        if (listCategoryToFind && listCategoryToFind?.length) {
+        if (listCategory && listCategory?.length) {
+            const listCategoryToFind = listCategory.map((item) => item.slug);
             if (this.query instanceof mongoose.Aggregate) {
                 this.query = this.query.match({ category: { $in: listCategoryToFind } });
             } else {

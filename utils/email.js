@@ -20,7 +20,7 @@ exports.sendOrderConfirmation = async (options) => {
                     <div style="font-size: 16.5px; font-weight: 500; align-self: center">
                         <div>
                             <h5 style="color: #252526">${item.product_name}</h5>
-                            <h5 style="color: #585759">${variant.color.label.toUpperCase()}</h5>
+                            <h5 style="color: #585759">${variant.color.toUpperCase()}</h5>
                         </div>
                         <p style="font-size: 12.5px; color: #585759">Amount: ${variant.amount}</p>
                         <p style="font-size: 12.5px; color: #585759">${variant.price.toFixed(2)}$</p>
@@ -84,7 +84,7 @@ exports.sendShippedConfirmation = async (options) => {
                     <div style="font-size: 16.5px; font-weight: 500; align-self: center">
                         <div>
                             <h5 style="color: #252526">${item.product_name}</h5>
-                            <h5 style="color: #585759">${variant.color.label.toUpperCase()}</h5>
+                            <h5 style="color: #585759">${variant.color.toUpperCase()}</h5>
                         </div>
                         <p style="font-size: 12.5px; color: #585759">Amount: ${variant.amount}</p>
                         <p style="font-size: 12.5px; color: #585759">${variant.price.toFixed(2)}$</p>

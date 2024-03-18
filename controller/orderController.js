@@ -281,7 +281,16 @@ exports.captureOrder = catchAsync(async (req, res, next) => {
 exports.sendOrderConfirmationMail = catchAsync(async (req, res, next) => {
     const { orderId } = req.params;
 
-    const order = await Order.findById(orderId).lean();
+    const order = await Order.findByIdAndUpdate(
+        orderId,
+        {
+            status: 'confirmed',
+        },
+        {
+            new: true,
+            runValidators: true,
+        },
+    ).lean();
     if (!order) {
         return next(new AppError('This order is not exist', 400));
     }
@@ -298,21 +307,32 @@ exports.sendOrderConfirmationMail = catchAsync(async (req, res, next) => {
 });
 exports.sendOrderShippedMail = catchAsync(async (req, res, next) => {
     const { orderId } = req.params;
+    const { trackingInfo } = req.body;
 
-    const order = await Order.findById(orderId).lean();
+    const order = await Order.findOne({ _id: orderId, $or: [{ status: 'pending' }, { status: 'fulfilled' }] }).lean();
     if (!order) {
-        return next(new AppError('This order is not exist', 400));
+        return next(new AppError('This order is not exist or not confirmed yet', 400));
     }
-    if (!order?.trackingInfo) {
-        return next(new AppError('The order have not tracking info yet', 400));
+    if (!trackingInfo && !order.trackingInfo) {
+        return next(new AppError('This order is not trackingInfo yet', 400));
     }
 
+    const editedOrder = await Order.findByIdAndUpdate(
+        orderId,
+        {
+            status: 'fulfilled',
+            trackingInfo,
+        },
+        {
+            new: true,
+            runValidators: true,
+        },
+    ).lean();
     await sendShippedConfirmation({
-        to: order.logisticInfo.email,
+        to: editedOrder.logisticInfo.email,
         subject: '4DEAREST - YOU ORDER WAS SHIPPED',
-        ...order,
+        ...editedOrder,
     });
-
     return sendResponseToClient(res, 200, {
         status: 'success',
         msg: 'Sent order shipped mail',

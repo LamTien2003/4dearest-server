@@ -15,7 +15,10 @@ router.patch(
     '/:idProduct',
     authMiddleware.protectLogin,
     authMiddleware.restrictTo('manage', 'admin'),
-    filesMiddleware.uploadMultiplePhoto('imagesProduct', 10),
+    filesMiddleware.uploadMultipleFields([
+        { name: 'imagesProduct', maxCount: 15 },
+        { name: 'imageChart', maxCount: 1 },
+    ]),
     filesMiddleware.resizePhoto('products'),
     productController.changeProduct,
 );
@@ -24,7 +27,10 @@ router.post(
     '/',
     authMiddleware.protectLogin,
     authMiddleware.restrictTo('admin', 'manage'),
-    filesMiddleware.uploadMultiplePhoto('imagesProduct', 10),
+    filesMiddleware.uploadMultipleFields([
+        { name: 'imagesProduct', maxCount: 15 },
+        { name: 'imageChart', maxCount: 1 },
+    ]),
     filesMiddleware.resizePhoto('products'),
     productController.addProduct,
 );
