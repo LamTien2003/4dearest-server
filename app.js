@@ -55,8 +55,8 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(helmet());
 
 // Body parser, reading data from body into req.body
-app.use(bodyParser.json({ limit: '30mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }));
+app.use(bodyParser.json({ limit: '60mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '60mb' }));
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
