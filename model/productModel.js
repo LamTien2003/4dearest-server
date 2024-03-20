@@ -42,7 +42,10 @@ const ProductSchema = new mongoose.Schema(
             type: Boolean,
             default: true,
         },
-
+        order: {
+            type: Number,
+            default: 0,
+        },
         slug: { type: String, slug: 'title' },
     },
     {
@@ -54,6 +57,9 @@ const ProductSchema = new mongoose.Schema(
 
 ProductSchema.virtual('price').get(function () {
     return this.variants[0].discountPrice;
+});
+ProductSchema.virtual('initialPrice').get(function () {
+    return this.variants[0].initialPrice;
 });
 ProductSchema.virtual('sold').get(function () {
     const variants = JSON.parse(JSON.stringify(this.variants));

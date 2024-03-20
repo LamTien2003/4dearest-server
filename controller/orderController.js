@@ -225,7 +225,6 @@ exports.captureOrder = catchAsync(async (req, res, next) => {
 
     const captureData = await capturePayment(orderID);
     if (captureData?.status && captureData.status === 'COMPLETED') {
-        console.log('complete');
         const { address_line_1, address_line_2, admin_area_1, admin_area_2, postal_code, country_code } =
             captureData.purchase_units[0].shipping.address;
 
